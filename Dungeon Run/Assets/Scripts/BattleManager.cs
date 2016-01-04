@@ -50,7 +50,7 @@ public class BattleManager : MonoBehaviour {
 		activeHeroTag = "";
 		activeEnemyTag = "";
 		heroAction = hero.GetComponent<HeroAction> ();
-		enemyAction = enemy.GetComponent<EnemyAction> ();
+		//enemyAction = enemy.GetComponent<EnemyAction> ();
 		//heroHealth = hero.GetComponent<HeroHealth> ();
 		//enemyHealth = enemy.GetComponent<EnemyHealth> ();
 		fightButton.SetActive(false);
@@ -61,7 +61,6 @@ public class BattleManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		time += Time.deltaTime;
-
 		// Check for full action bars on heroes
 		for (int i=0; i<Heroes.Count; i++) {
 			heroAction = Heroes[i].GetComponent<HeroAction> ();
@@ -128,6 +127,7 @@ public class BattleManager : MonoBehaviour {
 				deadEnemyCount++;
 			}
 		}
+
 		if (deadEnemyCount==Enemies.Count) {
 			Debug.Log("You have defeated all enemies!");
 		}
@@ -155,31 +155,44 @@ public class BattleManager : MonoBehaviour {
 
 	void ChooseEnemies ()
 	{
+		/*
 		int numEnemies = 1;
 		for (int i=0; i<numEnemies; i++) {
-			GameObject tmpEnemy = Resources.Load("Prefabs/TestEnemy", typeof(GameObject)) as GameObject;
+			//GameObject tmpEnemy = Resources.Load("Prefabs/TestEnemy", typeof(GameObject)) as GameObject;
+			GameObject tmpEnemy = (GameObject) Instantiate(Resources.Load("Prefabs/TestEnemy"));
+			Debug.Log("GameObject " + tmpEnemy.gameObject.name + " created.");
+
+			// Add the enemies to the characters list
+			Enemies.Add(tmpEnemy);
+			Characters.Add(tmpEnemy);
+			Debug.Log("Enemies: " + Enemies.Count + " Characters: " + Characters.Count);
+		} */
+	}
+
+	void SpawnEnemies ()
+	{	
+		int numEnemies = 1;
+		for (int i=0; i<numEnemies; i++) {
+			//GameObject tmpEnemy = Resources.Load("Prefabs/TestEnemy", typeof(GameObject)) as GameObject;
+			GameObject tmpEnemy = (GameObject) Instantiate(Resources.Load("Prefabs/TestEnemy"), 
+													enemySpawnPoints[0].position, enemySpawnPoints[0].rotation);
 			Debug.Log("GameObject " + tmpEnemy.gameObject.name + " created.");
 
 			// Add the enemies to the characters list
 			Enemies.Add(tmpEnemy);
 			Characters.Add(tmpEnemy);
 		}
-	}
-
-	void SpawnEnemies ()
-	{	
-		//Instantiate (enemy, enemySpawnPoints[0].position, enemySpawnPoints[0].rotation);
-		//Debug.Log("Spawned " + enemy.gameObject.name);
 
 		// Instantiate each enemy in the Enemy list
 		for (int i=0; i<Enemies.Count; i++) {
-			Sprite testSprite = Resources.Load("Sprites/knight1", typeof(Sprite)) as Sprite;
+			Sprite testSprite = Resources.Load("Sprites/knight2", typeof(Sprite)) as Sprite;
 			SpriteRenderer sr = Enemies[i].GetComponent<SpriteRenderer>();
 			sr.sprite = testSprite;
 			Enemies[i].SetActive(true);
 
-			Instantiate (Enemies[i], enemySpawnPoints[0].position, enemySpawnPoints[0].rotation);
-			Debug.Log("Instantiate called.");
+			//Instantiate (Enemies[i], enemySpawnPoints[0].position, enemySpawnPoints[0].rotation);
+			//Debug.Log("Instantiate called.");
+			Debug.Log("Starting health enemy" + i + ": " + Enemies[i].GetComponent<EnemyHealth>().startinghealth);
 		}
 
 		activeEnemyQueue = new Queue<string>();
@@ -189,9 +202,7 @@ public class BattleManager : MonoBehaviour {
 	void SpawnParty ()
 	{
 		// For heroes in the party, move them to the battlefield
-		hero.GetComponent<Transform>().Translate(heroSpawnPoints[0].position);
-		//Instantiate (hero, heroSpawnPoints[0].position, heroSpawnPoints[0].rotation);
-		Debug.Log("Spawned " + hero.gameObject.name);
+		hero.GetComponent<Transform>().position = heroSpawnPoints[0].position;
 
 		// Add the heroes to the characters list
 		Characters.Add(hero);

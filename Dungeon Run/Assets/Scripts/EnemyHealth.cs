@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour {
 	void Awake () {
 		//playerAudio = GetComponent <AudioSource> ();
 		currenthealth = startinghealth;
+		isDead = false;
 	}
 	
 	// Update is called once per frame

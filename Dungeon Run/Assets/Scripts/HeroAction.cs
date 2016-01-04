@@ -4,13 +4,13 @@ using System.Collections;
 
 public class HeroAction : MonoBehaviour {
 
-	public int startingAction = 0;
+	public int startingAction = 50;
 	public int maxAction = 100;
 	public int currentAction;
 	public Slider ActionSlider;
 
 	public int speed = 5;
-	public int defaultFillScaler = 75;
+	public int defaultFillScaler = 10;
 	public bool actionBarFull = false;
 	public bool actionHandled = false;
 	private bool isPaused = false;
@@ -18,6 +18,7 @@ public class HeroAction : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		currentAction = startingAction;
+		ActionSlider.value = startingAction;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +29,7 @@ public class HeroAction : MonoBehaviour {
 			{
 				currentAction += (int) ( speed * defaultFillScaler * Time.deltaTime );
 				ActionSlider.value = currentAction;
+				//Debug.Log("ActionSlider.value: " + ActionSlider.value);
 			}
 		}
 
