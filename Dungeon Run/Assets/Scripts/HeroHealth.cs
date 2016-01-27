@@ -6,6 +6,7 @@ public class HeroHealth : MonoBehaviour {
 
 	public int startinghealth = 30;
 	public int currenthealth;
+	public int attackdamage = 7;
 	public Slider HealthSlider;
 	public Image DamageImage;
 	// public AudioClip deathClip;
@@ -37,7 +38,7 @@ public class HeroHealth : MonoBehaviour {
 
 	// Figure better system for stats
 	public int Attack () {
-		return 7;
+		return attackdamage;
 	}
 
 	public void TakeDamage (int amount)

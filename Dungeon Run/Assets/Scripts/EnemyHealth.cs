@@ -5,6 +5,7 @@ public class EnemyHealth : MonoBehaviour {
 
 	public int startinghealth = 20;
 	public int currenthealth;
+	public int attackdamage = 5;
 	// public AudioClip deathClip;
 	
 	//AudioSource playerAudio;
@@ -25,7 +26,7 @@ public class EnemyHealth : MonoBehaviour {
 	
 	// Figure better system for stats
 	public int Attack () {
-		return 5;
+		return attackdamage;
 	}
 
 	

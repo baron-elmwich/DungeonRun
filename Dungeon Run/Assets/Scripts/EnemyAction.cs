@@ -8,7 +8,7 @@ public class EnemyAction : MonoBehaviour {
 	public int maxAction = 100;
 	public int currentAction;
 	
-	public int speed = 2;
+	public int speed = 4;
 	public int defaultFillScaler = 50;
 	public bool actionBarFull = false;
 	public bool actionHandled = false;
@@ -40,5 +40,13 @@ public class EnemyAction : MonoBehaviour {
 	public void Reset () {
 		currentAction = 0;
 		actionBarFull = false;
+	}
+
+	public void Pause () {
+		isPaused = true;
+	}
+
+	public void UnPause () {
+		isPaused = false;
 	}
 }
